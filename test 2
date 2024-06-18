@@ -1,0 +1,32 @@
+<!-- Контейнер для ввода трекинг-номера и кнопки -->
+<div style="text-align: center;">
+    <input maxlength="50" id="YQNum" type="text" placeholder="Enter your tracking number">
+    <input value="TRACK" type="button" onclick="doTrack()">
+    <!-- Контейнер для отображения результата отслеживания -->
+    <div id="YQContainer" style="margin-top: 20px;"></div>
+</div>
+
+<!-- Подключение скрипта 17TRACK и функция отслеживания -->
+<script type="text/javascript" src="https://www.17track.net/externalcall.js"></script>
+<script type="text/javascript">
+    function doTrack() {
+        var num = document.getElementById("YQNum").value;
+        if(num === ""){
+            alert("Enter your number.");
+            return;
+        }
+        YQV5.trackSingle({
+            YQ_ContainerId: "YQContainer",
+            YQ_Height: 560,
+            YQ_Fc: "0",
+            YQ_Lang: "en",
+            YQ_Num: num,
+            success: function(data) {
+                console.log("Tracking successful", data);
+            },
+            error: function(error) {
+                console.error("Tracking failed", error);
+            }
+        });
+    }
+</script>
